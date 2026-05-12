@@ -20,7 +20,17 @@
 
 function firstUniqueChar(s) {
   // YOUR CODE HERE
+  const charCount = new Map();
+  for (const char of s) {
+    charCount.set(char, (charCount.get(char) || 0) + 1);
+  }
 
+  for (let i = 0; i < s.length; i++) {
+    if (charCount.get(s[i]) === 1) {
+      return i;
+    }
+  }
+  return -1;
 }
 
 // ============================================================
@@ -47,12 +57,12 @@ function test(description, input, expected) {
 
 console.log("\n🔤 First Unique Character Tests\n");
 
-test('Unique char at end',             "abacabad",   6);
+test('Unique char at end',             "abacabad",   3);
 test('No unique chars',                "aabbcc",     -1);
 test('Single character string',        "z",          0);
 test('All unique — returns first',     "abcde",      0);
 test('Unique char at start',           "abba",       -1);
-test('Unique char in the middle',      "aabcca",     3);
+test('Unique char in the middle',      "aabcca",     2);
 test('Two unique chars — first wins',  "xxyzz",      2);
 test('Long repeated prefix',           "aaaaaab",    6);
 test('Repeated pairs, one odd one out',"ccddeeaf",   6);
